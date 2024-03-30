@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cek Kata Double</title>
+<script>
+    function checkDuplicateWords(str) {
+        var regex = /\b(\w+)\b.*\b\1\b/gi;
+        return regex.test(str);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var inputElement = document.getElementById("inputString");
+        var outputElement = document.getElementById("output");
+
+        inputElement.addEventListener("input", function() {
+            var inputString = inputElement.value;
+            var result = checkDuplicateWords(inputString);
+
+            if (result) {
+                outputElement.innerText = "Ada yang double.";
+            } else {
+                outputElement.innerText = "Tidak yang ada double.";
+            }
+        });
+    });
+</script>
+</head>
+<body>
+    <h1>Cek Kata Double</h1>
+    <input type="text" id="inputString" placeholder="Kata-kata untuk hari ini">
+    <p id="output"></p>
+</body>
+</html>
