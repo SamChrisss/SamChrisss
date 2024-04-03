@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tugas Regular Expression(Regex)</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    .background {
+        background-image: url('./bg.avif'); 
+        background-size: cover; 
+        background-position: center; 
+    }
+    .bg-form{
+        background: linear-gradient(135deg, #4F46E5 0%, #8F9BF6 100%);
+    }
+
+    .form-container {
+        max-width: 5000px; 
+        padding: 70px; 
+        margin: 70px; 
+        border-radius: 40px; 
+        display: fixed;
+    }
+
+    .form-wrapper {
+        display: flex; 
+        justify-content: space-between; 
+    }
+    
+</style>
+</head>
+<body class="font-sans background min-h-screen flex items-center justify-center">
+
+<div class="form-wrapper">
+    <!-- Form Pertama -->
+    <div class="form-container bg-form rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold mb-4 text-center">Cek Kata Double</h1>
+        <p class="text-center mb-4">Masukkan kata kata yang mau di cek:</p>
+        <input type="text" id="inputString" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Kata-kata untuk hari ini">
+        <p id="output" class="text-center font-semibold"></p>
+    </div>
+
+    <!-- Form Kedua -->
+    <div class="form-container bg-form rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold mb-4 text-center">Password Checker</h1>
+        <p class="text-center mb-4">Masukkan password yang anda buat:</p>
+        <input type="text" id="password" placeholder="Masukkan Password" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+        <p id="result" class="text-center font-semibold"></p>
+    </div>
+</div>
+
+<script>
+function checkPasswordStrength(password) {
+    var regex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@_$!%*?&])[A-Za-z\d@_$!%*?&]{8,}$/;;
+    return regex.test(password);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var passwordInput = document.getElementById("password");
+    var resultElement = document.getElementById("result");
+
+    passwordInput.addEventListener("input", function() {
+        var password = passwordInput.value;
+        var result = checkPasswordStrength(password);
+        if (result) {
+            resultElement.textContent = "Password memenuhi syarat kekuatan.";
+            resultElement.classList.remove("text-red-500");
+            resultElement.classList.add("text-green-500");
+        } else {
+            resultElement.textContent = "Password belum cukup kuat";
+            resultElement.classList.remove("text-green-500");
+            resultElement.classList.add("text-red-500");
+        }
+    });
+});
+
+function checkDuplicateWords(str) {
+    var regex = /\b([A-G]+)\b.*\b\1\b/gi;
+    return regex.test(str);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var inputElement = document.getElementById("inputString");
+    var outputElement = document.getElementById("output");
+
+    inputElement.addEventListener("input", function() {
+        var inputString = inputElement.value;
+        var result = checkDuplicateWords(inputString);
+
+        if (result) {
+            outputElement.innerText = "Ada yang double.";
+            outputElement.classList.remove("text-green-500");
+            outputElement.classList.add("text-red-500");
+        } else {
+            outputElement.innerText = "Tidak ada satupun kata yang double";
+            outputElement.classList.remove("text-red-500");
+            outputElement.classList.add("text-green-500");
+        }
+    });
+});
+</script>
+
+</body>
+</html>
