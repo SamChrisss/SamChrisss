@@ -25,7 +25,7 @@
 
     .form-wrapper {
         display: flex; 
-        justify-content: space-between; 
+        flex-direction: column;
     }
     
 </style>
@@ -48,11 +48,35 @@
         <input type="text" id="password" placeholder="Masukkan Password" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
         <p id="result" class="text-center font-semibold"></p>
     </div>
+
+    <!-- Form Ketiga -->
+    <div class="form-container bg-form rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold mb-4 text-center">Cek Angka</h1>
+        <p class="text-center mb-4">Masukkan string yang ingin diperiksa:</p>
+        <input type="text" id="angkaInput" placeholder="Masukkan String" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+        <p id="angkaResult" class="text-center font-semibold"></p>
+    </div>
+
+    <!-- Form Keempat -->
+    <div class="form-container bg-form rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold mb-4 text-center">Cek Email</h1>
+        <p class="text-center mb-4">Masukkan alamat email yang ingin diperiksa:</p>
+        <input type="text" id="emailInput" placeholder="Masukkan Email" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+        <p id="emailResult" class="text-center font-semibold"></p>
+    </div>
+
+    <!-- Form Kelima -->
+    <div class="form-container bg-form rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold mb-4 text-center">Cek URL</h1>
+        <p class="text-center mb-4">Masukkan URL yang ingin diperiksa:</p>
+        <input type="text" id="urlInput" placeholder="Masukkan URL" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+        <p id="urlResult" class="text-center font-semibold"></p>
+    </div>
 </div>
 
 <script>
-function checkPasswordStrength(password) {
-    var regex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@_$!%*?&])[A-Za-z\d@_$!%*?&]{8,}$/;;
+function cek_passwor_kuat(password) {
+    var regex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@_$!%*?&])[A-Za-z\d@_$!%*?&]{8,}$/;
     return regex.test(password);
 }
 
@@ -62,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     passwordInput.addEventListener("input", function() {
         var password = passwordInput.value;
-        var result = checkPasswordStrength(password);
+        var result = cek_passwor_kuat(password);
         if (result) {
             resultElement.textContent = "Password memenuhi syarat kekuatan.";
             resultElement.classList.remove("text-red-500");
@@ -96,6 +120,81 @@ document.addEventListener("DOMContentLoaded", function() {
             outputElement.innerText = "Tidak ada satupun kata yang double";
             outputElement.classList.remove("text-red-500");
             outputElement.classList.add("text-green-500");
+        }
+    });
+});
+
+function checkOnlyNumbers(str) {
+    var regex = /^[0-9]+$/;
+    return regex.test(str);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var angkaInput = document.getElementById("angkaInput");
+    var angkaResultElement = document.getElementById("angkaResult");
+
+    angkaInput.addEventListener("input", function() {
+        var angkaString = angkaInput.value;
+        var result = checkOnlyNumbers(angkaString);
+
+        if (result) {
+            angkaResultElement.innerText = "String hanya mengandung angka.";
+            angkaResultElement.classList.remove("text-red-500");
+            angkaResultElement.classList.add("text-green-500");
+        } else {
+            angkaResultElement.innerText = "String tidak hanya mengandung angka";
+            angkaResultElement.classList.remove("text-green-500");
+            angkaResultElement.classList.add("text-red-500");
+        }
+    });
+});
+
+function checkValidEmail(email) {
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var emailInput = document.getElementById("emailInput");
+    var emailResultElement = document.getElementById("emailResult");
+
+    emailInput.addEventListener("input", function() {
+        var email = emailInput.value;
+        var result = checkValidEmail(email);
+
+        if (result) {
+            emailResultElement.innerText = "Email valid.";
+            emailResultElement.classList.remove("text-red-500");
+            emailResultElement.classList.add("text-green-500");
+        } else {
+            emailResultElement.innerText = "Email tidak valid";
+            emailResultElement.classList.remove("text-green-500");
+            emailResultElement.classList.add("text-red-500");
+        }
+    });
+});
+
+function checkValidURL(url) {
+    var regex = /^(https?:\/\/)?([\w\-]+\.)*[\w\-]+([\/?#].*)?$/;
+    return regex.test(url);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var urlInput = document.getElementById("urlInput");
+    var urlResultElement = document.getElementById("urlResult");
+
+    urlInput.addEventListener("input", function() {
+        var url = urlInput.value;
+        var result = checkValidURL(url);
+
+        if (result) {
+            urlResultElement.innerText = "URL valid.";
+            urlResultElement.classList.remove("text-red-500");
+            urlResultElement.classList.add("text-green-500");
+        } else {
+            urlResultElement.innerText = "URL tidak valid";
+            urlResultElement.classList.remove("text-green-500");
+            urlResultElement.classList.add("text-red-500");
         }
     });
 });
